@@ -1,2 +1,2 @@
 # Starry-LearningAgent
-learn everything about agent
+Learn everything about agent
