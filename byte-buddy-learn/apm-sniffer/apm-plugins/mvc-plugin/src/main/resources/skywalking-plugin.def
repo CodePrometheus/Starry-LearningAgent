@@ -1,0 +1,2 @@
+mvc=com.github.codeprometheus.apm.plugin.ControllerInstrumentation
+mvc=com.github.codeprometheus.apm.plugin.RestControllerInstrumentation
