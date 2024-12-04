@@ -44,18 +44,18 @@ public class AgentPackagePath {
     private static File findPath() {
         // com/github/codeprometheus/apm/agent/core/boot/AgentPackagePath.class
         String classResourcePath = AgentPackagePath.class.getName().replaceAll("\\.", "/") + ".class";
-        // 1) file:/Users/zhouzixin/learn/Starry-LearningAgent/byte-buddy-learn/apm-sniffer/apm-agent-core/target/classes/com/github/codeprometheus/apm/agent/core/boot/AgentPackagePath.class
-        // 2) jar:file:/Users/zhouzixin/learn/Starry-LearningAgent/byte-buddy-learn/dist/apm-agent-1.0-SNAPSHOT-jar-with-dependencies.jar!/com/github/codeprometheus/apm/agent/core/boot/AgentPackagePath.class
+        // 1) file:/Users/zhouzixin/learn/Starry-LearningAgent/mini-sw-java/apm-sniffer/apm-agent-core/target/classes/com/github/codeprometheus/apm/agent/core/boot/AgentPackagePath.class
+        // 2) jar:file:/Users/zhouzixin/learn/Starry-LearningAgent/mini-sw-java/dist/apm-agent-1.0-SNAPSHOT-jar-with-dependencies.jar!/com/github/codeprometheus/apm/agent/core/boot/AgentPackagePath.class
         URL resource = AgentPackagePath.class.getClassLoader().getResource(classResourcePath);
         if (resource != null) {
             String urlString = resource.toString();
-            urlString = "jar:file:/Users/zhouzixin/learn/Starry-LearningAgent/byte-buddy-learn/dist/apm-agent-1.0-SNAPSHOT-jar-with-dependencies.jar!/com/github/codeprometheus/apm/agent/core/boot/AgentPackagePath.class";
+            urlString = "jar:file:/Users/zhouzixin/learn/Starry-LearningAgent/mini-sw-java/dist/apm-agent-1.0-SNAPSHOT-jar-with-dependencies.jar!/com/github/codeprometheus/apm/agent/core/boot/AgentPackagePath.class";
             log.info("AgentPackagePath|findPath urlString = {}", urlString);
             int insidePathIndex = urlString.indexOf("!");
             boolean isInJar = insidePathIndex > -1;
 
             if (isInJar) {
-                // file:/Users/zhouzixin/learn/Starry-LearningAgent/byte-buddy-learn/dist/apm-agent-1.0-SNAPSHOT-jar-with-dependencies.jar
+                // file:/Users/zhouzixin/learn/Starry-LearningAgent/mini-sw-java/dist/apm-agent-1.0-SNAPSHOT-jar-with-dependencies.jar
                 urlString = urlString.substring(urlString.indexOf("file:"), insidePathIndex);
                 log.info("AgentPackagePath|findPath1 urlString = {}", urlString);
                 File agentJarFile = null;
@@ -66,13 +66,13 @@ public class AgentPackagePath {
                 }
 
                 if (agentJarFile.exists()) {
-                    // /Users/zhouzixin/learn/Starry-LearningAgent/byte-buddy-learn/dist
+                    // /Users/zhouzixin/learn/Starry-LearningAgent/mini-sw-java/dist
                     log.info("AgentPackagePath|findPath resp = {}", agentJarFile.getParentFile());
                     return agentJarFile.getParentFile();
                 }
             } else {
                 int prefixLength = "file:".length(); // 5
-                // /Users/zhouzixin/learn/Starry-LearningAgent/byte-buddy-learn/apm-sniffer/apm-agent-core/target/classes/
+                // /Users/zhouzixin/learn/Starry-LearningAgent/mini-sw-java/apm-sniffer/apm-agent-core/target/classes/
                 String classLocation = urlString.substring(prefixLength, urlString.length() - classResourcePath.length());
                 log.info("AgentPackagePath|findPath classLocation:{}", classLocation);
                 return new File(classLocation);
