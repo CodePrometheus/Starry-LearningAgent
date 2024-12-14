@@ -152,3 +152,4 @@ Temporary Items
 .apdisk
 *.db
 mini-sw-java/dist
+*.o
